@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>   <!-- head content  -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript Quiz with Timer</title>
+  <body>
+    <audio controls autoplay loop>
+      <source src="lisa.m4a" type="audio/mp3">
+      Your browser does not support the audio element.
+    </audio>
+   
+  </body>
+ <!-- CSS styles */-->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      background-image: url('q.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    #quiz-container {
+      width: 60%;
+      margin: auto;
+      text-align: left;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    #timer {
+      font-size: 20px;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      padding: 10px;
+      margin-bottom: 10px;
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    input[type="radio"] {
+      margin-right: 5px;
+    }
+
+    h2 {
+      font-size: 24px;
+      color: #333333;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: white;
+      padding: 10px 20px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    p {
+      margin: 10px 0;
+    }
+
+    strong {
+      color: #4caf50;
+    }
+
+    #quiz-container h2,
+    #quiz-container p {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>JavaScript Quiz with Timer</title>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          text-align: center;
+          margin: 165px;
+          width: 90%;
+        }
+    
+        #quiz-container {
+          width: 70%;
+          margin: auto;
+          text-align: left;
+        }
+    
+        #timer {
+          font-size: 25px;
+          margin-bottom: 1opx;
+          text-align: center;
+        }
+    
+        label {
+          display: block;
+          padding: 5px;
+          text-align: left;
+        }
+    
+        input[type="radio"] {
+          margin-right: 5px;
+        }
+    
+        h2 {
+          font-size: 24px; /* Set the font size for h2 elements */
+        }
+      </style>
+    </head>
+    <body>
+    
+    <div id="quiz-container">
+      <div id="timer">Time: <span id="time">10</span> seconds</div>
+      <div id="question-container"></div>
+      <button onclick="submitQuiz()">Submit</button>
+    </div>
+    
+    <script>// JavaScript code for the quiz functionality
+    const questions = [  // An array of objects representing quiz questions, options, and correct answers
+    {
+        question : "1.A style of Japanese film and television animation, typically aimed at adults as well as children.?",
+        options: ["Cartoon", "Anime", "Hentay", "Comics"],
+        correctAnswer: "Anime"
+      },
+      {
+        question: "2.What is the middle intial of Monkey _. Luffy?",
+        options: ["C", "A", "D", "U"],
+        correctAnswer: "D"
+      },
+      {
+        question: "3.Who is the king of pirates in One piece?",
+        options: ["Monkey D. Luffy", "Buggy the Clown", "Gol D. Goger", " Con D. Oriano"],
+        correctAnswer: "Gol D. Goger"
+      },
+      {
+        question: "4.What is the name of the devil fruit of Trafalgar Law ?",
+        options: ["Ope ope nomi", "Mera mersa nomi", "Gumo gumo nomi", " Hana Hana no Mi"],
+        correctAnswer: "Ope ope nomi"
+      },
+      {
+        question: "5.Who is the first Crew of Straw hats Pirates?",
+        options: ["Coby", "Nami", "Zoro", " Sanji"],
+        correctAnswer: "Zoro"
+      },
+      {
+        question: "6.What is Tanjiro's last name?",
+        options: ["Hashibira", "Kamado", "Agatsuma", " Oniechan"],
+        correctAnswer: "Kamado"
+      },
+      {
+        question: "7.is a world-famous gang of thieves and a criminal organization and the main antagonists in Hunter X Hunter.?",
+        options: ["Phantom Troupe", "Akatsuki", "The Overflow", "Buko no"],
+        correctAnswer: "Phantom Troupe"
+      },
+      {
+        question: "8.Who was the person who taught Tanjiro Water Breathing?",
+        options: ["Kyojuro Rengoku", "Shinjuro Rengoku", "Sakonji Urokodaki", " Con D. Oriano"],
+        correctAnswer: "Sakonji Urokodaki"
+      },
+      {
+        question: "9.What is a demon's greatest weakness in Demon Slayer?",
+        options: ["Swords", "The Sun", " Gun", "Holy Water"],
+        correctAnswer: "The Sun"
+      },
+      {
+        question: "10.Who use Thunder Breathing form as thier Technique?",
+        options: ["Giyuu Tomioka", "Giyuu Tomioka", "Con D. Oriano", " Zenitsu Agatsuma"],
+        correctAnswer: "Zenitsu Agatsuma"
+      },
+      {
+        question: "11.Which demon Slayer wears a boar mask?",
+        options: ["Inosuke Hashibira", " Zenitsu Agatsuma", "Tanjiro Kamado", " Con D. Oriano"],
+        correctAnswer: "Inosuke Hashibira"
+      },
+      {
+        question: "12.What is the first jutsu that Naruto learned?",
+        options: ["Edo Tensei", "Fire Ball Jutsu", "Multi Shadow Clone Jutsu", "Rasengan"],
+        correctAnswer: "Multi Shadow Clone Jutsu"
+      },
+      {
+        question: "13.Who are the member of team 7? ",
+        options: ["Guy,Kakashi,Kurani", "Naruto, Sakura, Sasuke", "Lee, Neji, Tenten", " Naruto, Sasuke, Con D. Oriano"],
+        correctAnswer: "Naruto, Sakura, Sasuke"
+      },
+      {
+        question: "14.What does Gyro state to be one of his biggest Fears?",
+        options: ["Fighting", "Wowen", "Heights", "Coding"],
+        correctAnswer: "Wowen"
+      },
+      {
+        question: "15.How Did Kakyoin attack Jotaro when he was first reveal?",
+        options: ["A katana", " A Gun", "A paintbrush", "His Stand"],
+        correctAnswer: "His Stand"
+      },
+      {
+        question: "16.Yuji Itador curse technique is...?",
+        options: ["Black Flash", "Divergence", "None", "Superhuman Strength"],
+        correctAnswer: "None"
+      },
+      {
+        question: "17.Gojo Saturo curse technique is...?",
+        options: ["Limitless", "Infinite", "Convergencer", "Void"],
+        correctAnswer: "Limitless"
+      },
+      {
+        question: "18.Which one is not Sukuna cursed technique??",
+        options: ["Dismantle", "Cursed Slash", "Cleave", "Fire Arrow"],
+        correctAnswer: "Cursed Slash"
+      },
+      {
+        question: "19.What is Natsu Dragneel power?",
+        options: ["Fire Dragon Slayer Magic", "Wind Dragon Slayer Magic", "Iron Dragon Slayer Magic", "Fire/Lightning Dragon Slayer Magic"],
+        correctAnswer: "Fire Dragon Slayer Magic"
+      },
+      {
+        question: "20.BA'T KA SINGLE?",
+        options: ["Kasi walang Jowa", "Study First", "Strict Parents", "Oo na single na"],
+        correctAnswer: "Oo na single na"
+      }
+      // ... (unchanged)
+    ];
+    
+    let currentQuestion = 0;
+    let score = 0;
+    let timeRemaining = 10;
+    let timer;
+    // Function to start the quiz
+    function startQuiz() {
+      displayQuestion();
+      timer = setInterval(updateTimer, 1000);
+    }
+    // Function to display a quiz question
+    function displayQuestion() {
+      const questionContainer = document.getElementById("question-container"); // Retrieves the question container and the current question object
+      const currentQ = questions[currentQuestion];
+    // Creates HTML for options using the current question's options
+      const optionsHtml = currentQ.options.map(option =>
+        `<label>
+          <input type="radio" name="answer" value="${option}"> ${option}
+        </label>`
+      ).join('');
+    // Updates the question container's HTML with the current question and options
+      questionContainer.innerHTML = `
+        <h2>${currentQ.question}</h2>
+        ${optionsHtml}
+      `;
+     // Resets the timer for the current question
+      resetTimer();
+    }
+    // Function to reset the timer
+    function resetTimer() {
+      timeRemaining = 10;
+    }
+    // Function to update the timer
+    function updateTimer() { 
+      const timeElement = document.getElementById("time"); // Retrieves the time element and updates its content with the remaining time
+      timeElement.textContent = timeRemaining;
+    // If time runs out, submit the quiz
+      if (timeRemaining === 0) {
+        submitQuiz();
+      } else {
+        timeRemaining--;
+      }
+    }
+    // Function to submit the quiz
+    function submitQuiz() { // Retrieves the selected option
+      const selectedOption = document.querySelector('input[name="answer"]:checked');
+    
+      if (!selectedOption) {
+        // If no option is selected, proceed to the next question
+        currentQuestion++;
+        if (currentQuestion < questions.length) {
+          displayQuestion();
+        } else {
+          endQuiz();
+        }
+      } else {
+        // If an option is selected, check the answer and proceed
+        if (selectedOption.value === questions[currentQuestion].correctAnswer) {
+          score++;
+        }
+    
+        currentQuestion++;
+        if (currentQuestion < questions.length) {
+          displayQuestion();
+        } else {
+          endQuiz();
+        }
+      }
+    }
+    
+    function endQuiz() {
+      clearInterval(timer);
+    
+      const quizContainer = document.getElementById("quiz-container");
+      const correctAnswersHtml = questions.map(q =>
+        `<p>${q.question}: <strong>${q.correctAnswer}</strong></p>`
+      ).join('');
+    
+      quizContainer.innerHTML = `
+        <h2>Quiz Complete</h2>
+        <p>Your score: ${score} out of ${questions.length}</p>
+        ${correctAnswersHtml}
+      `;
+    }
+    
+    // Start the quiz when the page loads
+    startQuiz();
+    </script>
+    
+    </body>
+    </html>
+    
+<!-- Your existing HTML code here -->
+
+</body>
+</html>
